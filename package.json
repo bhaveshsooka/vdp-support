@@ -1,0 +1,33 @@
+{
+  "name": "project-vdp-siler-bullet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "spago test",
+    "clean": "rimraf .cache .spago .psci_modules output .pulp-cache prod dist",
+    "build": "spago build --global-cache=skip",
+    "dev": "rimraf dist && spago build && cross-env NODE_ENV=development parcel build --public-url ./ index.html",
+    "prod": "rimraf prod dist && mkdir prod && spago bundle-app --main Main --to prod/index.prod.js && java -jar closure-compiler/closure-compiler-v20190301.jar --js prod/index.prod.js --js_output_file prod/index.js && cp index.html prod/index.html && parcel build --public-url ./ prod/index.html && rimraf prod",
+    "start": "spago build --global-cache=skip && parcel index.html",
+    "watch": "spago build && parcel watch index.html"
+  },
+  "author": "Bhavesh Sooka",
+  "license": "MIT",
+  "dependencies": {
+    "g": "^2.0.1",
+    "purty": "^7.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scheduler": "^0.1.0",
+    "scheduler": "^0.20.2"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "parcel": "^2.2.0",
+    "rimraf": "^3.0.2"
+  }
+}

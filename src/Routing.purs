@@ -2,7 +2,7 @@ module Test.Routing
   ( routingWidget
   ) where
 
-import Prelude
+import Prelude (bind, discard, pure, void, ($), (*>), (<$), (<*))
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
@@ -16,11 +16,12 @@ import Effect.Aff.Class (liftAff)
 import Effect.Class (liftEffect)
 import Routing.Hash (matches)
 import Routing.Match (Match, end, lit, root)
-import Test.Pages.ApplicationsPage (applicationsPage)
 import Test.Pages.HelpPage (helpPage)
 import Test.Pages.HomePage (homePage)
 import Test.Pages.InformationPage (informationPage)
+import Test.Pages.OperationsPage (operationsPage)
 import Test.Pages.UnknownPage (unknownPage)
+import Test.Styles (sidebarItemStyle, sidebarStyle)
 
 -- To route, we start listening for route changes with `matches`
 -- On each route change we push the route to a var
@@ -48,7 +49,7 @@ routingWidget = do
 -- Route and associated pages
 data MyRoute
   = HomePage
-  | ApplicationsPage
+  | OperationsPage
   | InformationPage
   | HelpPage
   | UnknownPage
@@ -58,7 +59,7 @@ myRoutes =
   root
     *> oneOf
         [ HomePage <$ end
-        , ApplicationsPage <$ lit "apps" <* end
+        , OperationsPage <$ lit "operations" <* end
         , InformationPage <$ lit "info" <* end
         , HelpPage <$ lit "help" <* end
         ]
@@ -66,7 +67,7 @@ myRoutes =
 pageForRoute :: forall a. MyRoute -> Widget HTML a
 pageForRoute HomePage = homePage
 
-pageForRoute ApplicationsPage = applicationsPage
+pageForRoute OperationsPage = operationsPage
 
 pageForRoute InformationPage = informationPage
 

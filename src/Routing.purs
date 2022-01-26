@@ -76,33 +76,10 @@ pageForRoute _ = unknownPage
 
 sidebar :: forall a. Widget HTML a
 sidebar =
-  let
-    menuItemStyle fontSize =
-      P.style
-        { "padding": "6px 8px 6px 16px"
-        , "text-decoration": "none"
-        , "color": "#818181"
-        , "display": "block"
-        , "font-size": fontSize
-        }
-
-    menuStyle =
-      P.style
-        { "width": "15.0%"
-        , "height": "100%"
-        , "position": "fixed"
-        , "z-index": "1"
-        , "top": "0"
-        , "left": "0"
-        , "background-color": "#111"
-        , "overflow-x": "hidden"
-        , "padding-top": "20px"
-        }
-  in
-    D.div [ menuStyle ]
-      [ D.a [ menuItemStyle "40px", P.href "#/" ] [ D.text "Menu" ]
-      , D.a [ menuItemStyle "25px", P.href "#/" ] [ D.text "Home" ]
-      , D.a [ menuItemStyle "25px", P.href "#/apps" ] [ D.text "Applications" ]
-      , D.a [ menuItemStyle "25px", P.href "#/info" ] [ D.text "Information" ]
-      , D.a [ menuItemStyle "25px", P.href "#/help" ] [ D.text "Help" ]
-      ]
+  D.div [ sidebarStyle ]
+    [ D.a [ sidebarItemStyle "40px", P.href "#/" ] [ D.text "Menu" ]
+    , D.a [ sidebarItemStyle "25px", P.href "#/" ] [ D.text "Home" ]
+    , D.a [ sidebarItemStyle "25px", P.href "#/operations" ] [ D.text "Operations" ]
+    , D.a [ sidebarItemStyle "25px", P.href "#/info" ] [ D.text "Information" ]
+    , D.a [ sidebarItemStyle "25px", P.href "#/help" ] [ D.text "Help" ]
+    ]

@@ -2,7 +2,6 @@ module Test.Routing
   ( routingWidget
   ) where
 
-import Prelude (bind, discard, pure, void, ($), (*>), (<$), (<*))
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
@@ -14,12 +13,13 @@ import Effect.Aff (Milliseconds(..), delay)
 import Effect.Aff.AVar as Avar
 import Effect.Aff.Class (liftAff)
 import Effect.Class (liftEffect)
+import Prelude (bind, discard, pure, void, ($), (*>), (<$), (<*))
 import Routing.Hash (matches)
 import Routing.Match (Match, end, lit, root)
 import Test.Pages.HelpPage (helpPage)
 import Test.Pages.HomePage (homePage)
 import Test.Pages.InformationPage (informationPage)
-import Test.Pages.OperationsPage (operationsPage)
+import Test.Pages.OperationsPage (MyTab(..), operationsPage)
 import Test.Pages.UnknownPage (unknownPage)
 import Test.Styles (sidebarItemStyle, sidebarStyle)
 
@@ -67,7 +67,7 @@ myRoutes =
 pageForRoute :: forall a. MyRoute -> Widget HTML a
 pageForRoute HomePage = homePage
 
-pageForRoute OperationsPage = operationsPage
+pageForRoute OperationsPage = operationsPage ConsumerRestarts
 
 pageForRoute InformationPage = informationPage
 

@@ -1,9 +1,8 @@
 module Test.Styles where
 
-import Concur.React.Props (ReactProps)
 import Concur.React.Props as P
 
-sidebarStyle :: forall a. ReactProps a
+sidebarStyle :: forall a. P.ReactProps a
 sidebarStyle =
   P.style
     { "width": "15.0%"
@@ -17,7 +16,7 @@ sidebarStyle =
     , "padding-top": "20px"
     }
 
-sidebarItemStyle :: String -> forall a. ReactProps a
+sidebarItemStyle :: String -> forall a. P.ReactProps a
 sidebarItemStyle fontSize =
   P.style
     { "padding": "6px 8px 6px 16px"
@@ -27,9 +26,21 @@ sidebarItemStyle fontSize =
     , "font-size": fontSize
     }
 
-operationsTopbarStyle :: forall a. ReactProps a
+operationsTopbarStyle :: forall a. P.ReactProps a
 operationsTopbarStyle =
   P.style
     { "background-color": "#333"
     , "overflow": "hidden"
+    }
+
+operationsTopbarItemStyle :: forall a. P.ReactProps a
+operationsTopbarItemStyle =
+  P.style
+    { "float": "left"
+    , "text-align": "14px 16px"
+    , "padding": "center"
+    , "text-decoration": "none"
+    , "font-size": "17px"
+    -- , "color": if (hover == "True") then "black" else "white"
+    -- , "background-color": if (hover == "True") then "white" else "black"
     }

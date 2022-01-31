@@ -1,7 +1,5 @@
 module Test.Pages.OperationsPage
-  ( MyTab(..)
-  , MyTabAction(..)
-  , operationsPage
+  ( operationsPage
   ) where
 
 import Prelude
@@ -10,27 +8,8 @@ import Concur.React (HTML)
 import Concur.React.DOM as D
 import Concur.React.Props as P
 import Control.Alt ((<|>))
+import Test.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..))
 import Test.Styles (operationsTopbarItemStyle, operationsTopbarStyle)
-
-data MyTab
-  = ConsumerRestarts
-  | HealthChecks
-
-instance eqMyTab :: Eq MyTab where
-  eq ConsumerRestarts ConsumerRestarts = true
-  eq HealthChecks HealthChecks = true
-  eq _ _ = false
-
-data MyTabAction
-  = Click
-  | Hover
-  | Unhover
-
-instance eqMyTabAction :: Eq MyTabAction where
-  eq Click Click = true
-  eq Hover Hover = true
-  eq Unhover Unhover = true
-  eq _ _ = false
 
 operationsPage :: forall a. MyTab -> MyTabAction -> Widget HTML a
 operationsPage activeTab action = do

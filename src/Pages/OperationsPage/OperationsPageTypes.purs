@@ -1,8 +1,7 @@
 module Test.Pages.OperationsPage.OperationsPageTypes
   ( MyTab(..)
   , MyTabAction(..)
-  )
-  where
+  ) where
 
 import Prelude
 

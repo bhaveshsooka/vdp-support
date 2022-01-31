@@ -1,4 +1,12 @@
-module Test.Styles where
+module Test.Styles
+  ( operationsTopbarItemStyle
+  , operationsTopbarStyle
+  , sidebarItemStyle
+  , sidebarStyle
+  )
+  where
+
+import Prelude
 
 import Concur.React.Props as P
 
@@ -33,14 +41,17 @@ operationsTopbarStyle =
     , "overflow": "hidden"
     }
 
-operationsTopbarItemStyle :: forall a. P.ReactProps a
-operationsTopbarItemStyle =
+operationsTopbarItemStyle :: forall a. Boolean -> Boolean -> P.ReactProps a
+operationsTopbarItemStyle active hover =
   P.style
     { "float": "left"
-    , "text-align": "14px 16px"
-    , "padding": "center"
+    , "text-align": "center"
+    , "padding": "14px 16px"
     , "text-decoration": "none"
     , "font-size": "17px"
-    -- , "color": if (hover == "True") then "black" else "white"
-    -- , "background-color": if (hover == "True") then "white" else "black"
+    , "background-color": setColor active "#04AA6D" $ setColor hover "#ddd" "#333"
+    , "color": setColor active "white" $ setColor hover "black" "#f2f2f2"
     }
+
+setColor :: Boolean -> String -> String -> String
+setColor active colTrue colFalse = if (active == true) then colTrue else colFalse

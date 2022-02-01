@@ -1,16 +1,14 @@
 module Test.Styles
-  ( consumerRestartsButtonGroupsStyle
-  , consumerRestartsButtonStyle
-  , consumerRestartsContentStyle
+  ( operationsButtonGroupsStyle
+  , operationsButtonStyle
+  , operationsContentStyle
   , operationsTopbarItemStyle
   , operationsTopbarStyle
   , sidebarItemStyle
   , sidebarStyle
-  )
-  where
+  ) where
 
 import Prelude
-
 import Concur.React.Props as P
 
 sidebarStyle :: forall a. P.ReactProps a
@@ -57,15 +55,15 @@ operationsTopbarItemStyle active hover =
     , "color": setColor active "white" $ setColor hover "black" "#f2f2f2"
     }
 
-consumerRestartsContentStyle :: forall a. P.ReactProps a
-consumerRestartsContentStyle =
+operationsContentStyle :: forall a. P.ReactProps a
+operationsContentStyle =
   P.style
     { "display": "flex"
     , "flex-wrap": "wrap"
     }
 
-consumerRestartsButtonGroupsStyle :: forall a. P.ReactProps a
-consumerRestartsButtonGroupsStyle =
+operationsButtonGroupsStyle :: forall a. P.ReactProps a
+operationsButtonGroupsStyle =
   P.style
     { "flex-grow": "1"
     , "width": "20%"
@@ -75,8 +73,8 @@ consumerRestartsButtonGroupsStyle =
     , "border-style": "double"
     }
 
-consumerRestartsButtonStyle :: forall a. String -> P.ReactProps a
-consumerRestartsButtonStyle color =
+operationsButtonStyle :: forall a. String -> P.ReactProps a
+operationsButtonStyle color =
   P.style
     { "background-color": color
     -- , "border": "none"

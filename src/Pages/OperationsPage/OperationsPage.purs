@@ -9,7 +9,7 @@ import Concur.React.DOM as D
 import Concur.React.Props as P
 import Control.Alt ((<|>))
 import Test.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..))
-import Test.Styles (consumerRestartsButtonGroupsStyle, consumerRestartsButtonStyle, consumerRestartsContentStyle, operationsTopbarItemStyle, operationsTopbarStyle)
+import Test.Styles (operationsButtonGroupsStyle, operationsButtonStyle, operationsContentStyle, operationsTopbarItemStyle, operationsTopbarStyle)
 
 operationsPage :: forall a. MyTab -> MyTabAction -> Widget HTML a
 operationsPage activeTab action = do
@@ -59,15 +59,15 @@ consumerServices =
 consumerRestartsContent :: forall a. Widget HTML a
 consumerRestartsContent =
   D.div
-    [ consumerRestartsContentStyle ]
+    [ operationsContentStyle ]
     (map buttonGroups consumerServices)
   where
   buttonGroups :: forall b. ConsumerServiceInfo -> Widget HTML b
   buttonGroups consumerService =
-    D.div [ consumerRestartsButtonGroupsStyle ]
+    D.div [ operationsButtonGroupsStyle ]
       [ D.h3' [ D.text consumerService.marketName ]
-      , D.button [ consumerRestartsButtonStyle "#aa0441" ] [ D.text "Pause" ]
-      , D.button [ consumerRestartsButtonStyle "#04AA6D" ] [ D.text "Restart" ]
+      , D.button [ operationsButtonStyle "#aa0441" ] [ D.text "Pause" ]
+      , D.button [ operationsButtonStyle "#04AA6D" ] [ D.text "Restart" ]
       ]
 
 type HealthCheckInfo
@@ -91,12 +91,12 @@ healthCheckServices =
 healthCheckContent :: forall a. Widget HTML a
 healthCheckContent =
   D.div
-    [ consumerRestartsContentStyle ]
+    [ operationsContentStyle ]
     (map buttonGroups healthCheckServices)
   where
   buttonGroups :: forall b. HealthCheckInfo -> Widget HTML b
   buttonGroups consumerService =
-    D.div [ consumerRestartsButtonGroupsStyle ]
+    D.div [ operationsButtonGroupsStyle ]
       [ D.h3' [ D.text consumerService.serviceName ]
-      , D.button [ consumerRestartsButtonStyle "#04AA6D" ] [ D.text "Check Health" ]
+      , D.button [ operationsButtonStyle "#04AA6D" ] [ D.text "Check Health" ]
       ]

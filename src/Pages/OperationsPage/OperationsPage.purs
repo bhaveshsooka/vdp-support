@@ -34,7 +34,7 @@ operationsPage activeTab action = do
       ]
       <|> case activeTab of
           ConsumerRestarts -> consumerRestartsContent
-          HealthChecks -> D.div' [ D.text "Health Checks Content" ]
+          HealthChecks -> healthCheckContent
   operationsPage selectedTab action
 
 type ConsumerServiceInfo
@@ -68,4 +68,35 @@ consumerRestartsContent =
       [ D.h3' [ D.text consumerService.marketName ]
       , D.button [ consumerRestartsButtonStyle "#aa0441" ] [ D.text "Pause" ]
       , D.button [ consumerRestartsButtonStyle "#04AA6D" ] [ D.text "Restart" ]
+      ]
+
+type HealthCheckInfo
+  = { serviceName :: String
+    , healthCheckEndpoint :: String
+    }
+
+healthCheckServices :: Array HealthCheckInfo
+healthCheckServices =
+  [ { serviceName: "service1", healthCheckEndpoint: "http:service1/health" }
+  , { serviceName: "service2", healthCheckEndpoint: "http:service2/health" }
+  , { serviceName: "service3", healthCheckEndpoint: "http:service3/health" }
+  , { serviceName: "service4", healthCheckEndpoint: "http:service4/health" }
+  , { serviceName: "service5", healthCheckEndpoint: "http:service5/health" }
+  , { serviceName: "service6", healthCheckEndpoint: "http:service6/health" }
+  , { serviceName: "service7", healthCheckEndpoint: "http:service7/health" }
+  , { serviceName: "service8", healthCheckEndpoint: "http:service8/health" }
+  , { serviceName: "service9", healthCheckEndpoint: "http:service9/health" }
+  ]
+
+healthCheckContent :: forall a. Widget HTML a
+healthCheckContent =
+  D.div
+    [ consumerRestartsContentStyle ]
+    (map buttonGroups healthCheckServices)
+  where
+  buttonGroups :: forall b. HealthCheckInfo -> Widget HTML b
+  buttonGroups consumerService =
+    D.div [ consumerRestartsButtonGroupsStyle ]
+      [ D.h3' [ D.text consumerService.serviceName ]
+      , D.button [ consumerRestartsButtonStyle "#04AA6D" ] [ D.text "Check Health" ]
       ]

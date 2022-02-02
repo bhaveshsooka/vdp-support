@@ -16,7 +16,7 @@ operationsPage activeTab action = do
   selectedTab <-
     D.div [ operationsTopbarStyle ]
       [ D.a
-          [ operationsTopbarItemStyle (ConsumerRestarts == activeTab) (action /= Click)
+          [ operationsTopbarItemStyle (ConsumerRestarts == activeTab) (action == Hover)
           , P.onClick $> Click
           -- , P.onMouseLeave $> Unhover
           -- , P.onMouseOver $> Hover
@@ -24,7 +24,7 @@ operationsPage activeTab action = do
           [ D.text "Consumer Restarts" ]
           $> ConsumerRestarts
       , D.a
-          [ operationsTopbarItemStyle (HealthChecks == activeTab) (action /= Click)
+          [ operationsTopbarItemStyle (HealthChecks == activeTab) (action == Hover)
           , P.onClick $> Click
           -- , P.onMouseLeave $> Unhover
           -- , P.onMouseOver $> Hover

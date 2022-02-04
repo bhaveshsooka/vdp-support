@@ -3,20 +3,21 @@ module Test.Pages.OperationsPage
   ) where
 
 import Prelude
+
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
 import Concur.React.Props as P
 import Control.Alt ((<|>))
 import Test.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..))
-import Test.Styles (operationsButtonGroupsStyle, operationsButtonStyle, operationsContentStyle, operationsTopbarItemStyle, operationsTopbarStyle)
+import Test.Styles (operationsButtonGroupsStyle, operationsButtonStyle, operationsContentStyle, topbarItemStyle, topbarStyle)
 
 operationsPage :: forall a. MyTab -> MyTabAction -> Widget HTML a
 operationsPage activeTab action = do
   selectedTab <-
-    D.div [ operationsTopbarStyle ]
+    D.div [ topbarStyle ]
       [ D.a
-          [ operationsTopbarItemStyle (ConsumerRestarts == activeTab) (action == Hover)
+          [ topbarItemStyle (ConsumerRestarts == activeTab) (action == Hover)
           , P.onClick $> Click
           -- , P.onMouseLeave $> Unhover
           -- , P.onMouseOver $> Hover
@@ -24,7 +25,7 @@ operationsPage activeTab action = do
           [ D.text "Consumer Restarts" ]
           $> ConsumerRestarts
       , D.a
-          [ operationsTopbarItemStyle (HealthChecks == activeTab) (action == Hover)
+          [ topbarItemStyle (HealthChecks == activeTab) (action == Hover)
           , P.onClick $> Click
           -- , P.onMouseLeave $> Unhover
           -- , P.onMouseOver $> Hover

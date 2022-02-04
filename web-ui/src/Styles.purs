@@ -2,10 +2,10 @@ module Test.Styles
   ( operationsButtonGroupsStyle
   , operationsButtonStyle
   , operationsContentStyle
-  , operationsTopbarItemStyle
-  , operationsTopbarStyle
   , sidebarItemStyle
   , sidebarStyle
+  , topbarItemStyle
+  , topbarStyle
   ) where
 
 import Prelude
@@ -35,16 +35,16 @@ sidebarItemStyle fontSize =
     , "font-size": fontSize
     }
 
-operationsTopbarStyle :: forall a. P.ReactProps a
-operationsTopbarStyle =
+topbarStyle :: forall a. P.ReactProps a
+topbarStyle =
   P.style
     { "background-color": "#333"
     , "overflow": "hidden"
     , "margin-bottom": "10px"
     }
 
-operationsTopbarItemStyle :: forall a. Boolean -> Boolean -> P.ReactProps a
-operationsTopbarItemStyle active hover =
+topbarItemStyle :: forall a. Boolean -> Boolean -> P.ReactProps a
+topbarItemStyle active hover =
   P.style
     { "float": "left"
     , "text-align": "center"

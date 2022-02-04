@@ -17,6 +17,7 @@ import Prelude (bind, discard, pure, void, ($), (*>), (<$), (<*))
 import Routing.Hash (matches)
 import Routing.Match (Match, end, lit, root)
 import Test.Pages.HelpPage (helpPage)
+import Test.Pages.HelpPage.HelpPageTypes (MyTab(..), MyTabAction(..)) as HelpPageTypes
 import Test.Pages.HomePage (homePage)
 import Test.Pages.InformationPage (informationPage)
 import Test.Pages.InformationPage.InformationPageTypes (MyTab(..), MyTabAction(..)) as InformationPageTypes
@@ -73,7 +74,7 @@ pageForRoute OperationsPage = operationsPage OperationsPageTypes.ConsumerRestart
 
 pageForRoute InformationPage = informationPage InformationPageTypes.ServerIPs InformationPageTypes.Click
 
-pageForRoute HelpPage = helpPage
+pageForRoute HelpPage = helpPage HelpPageTypes.ArchitectureDiagrams HelpPageTypes.Click
 
 pageForRoute _ = unknownPage
 

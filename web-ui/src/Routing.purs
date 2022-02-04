@@ -19,8 +19,9 @@ import Routing.Match (Match, end, lit, root)
 import Test.Pages.HelpPage (helpPage)
 import Test.Pages.HomePage (homePage)
 import Test.Pages.InformationPage (informationPage)
+import Test.Pages.InformationPage.InformationPageTypes (MyTab(..), MyTabAction(..)) as InformationPageTypes
 import Test.Pages.OperationsPage (operationsPage)
-import Test.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..))
+import Test.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..)) as OperationsPageTypes
 import Test.Pages.UnknownPage (unknownPage)
 import Test.Styles (sidebarItemStyle, sidebarStyle)
 
@@ -68,9 +69,9 @@ myRoutes =
 pageForRoute :: forall a. MyRoute -> Widget HTML a
 pageForRoute HomePage = homePage
 
-pageForRoute OperationsPage = operationsPage ConsumerRestarts Click
+pageForRoute OperationsPage = operationsPage OperationsPageTypes.ConsumerRestarts OperationsPageTypes.Click
 
-pageForRoute InformationPage = informationPage
+pageForRoute InformationPage = informationPage InformationPageTypes.ServerIPs InformationPageTypes.Click
 
 pageForRoute HelpPage = helpPage
 

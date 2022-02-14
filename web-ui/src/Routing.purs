@@ -1,89 +1,76 @@
 module VDPSupport.Routing
-  ( routingWidget
+  ( Page(..)
+  , PageActions(..)
+  , Route(..)
+  , currentRoute
+  , pageToRoute
+  , parseRoute
+  , printRoute
+  , routeToPage
   ) where
 
-import Concur.Core (Widget)
-import Concur.React (HTML)
-import Concur.React.DOM as D
-import Concur.React.Props as P
-import Control.Alt ((<|>))
-import Data.Foldable (oneOf)
-import Effect.AVar as Evar
-import Effect.Aff (Milliseconds(..), delay)
-import Effect.Aff.AVar as Avar
-import Effect.Aff.Class (liftAff)
-import Effect.Class (liftEffect)
-import Prelude (bind, discard, pure, void, ($), (*>), (<$), (<*))
-import Routing.Hash (matches)
-import Routing.Match (Match, end, lit, root)
-import VDPSupport.Pages.HelpPage (helpPage)
-import VDPSupport.Pages.HelpPage.HelpPageTypes (MyTab(..), MyTabAction(..)) as HelpPageTypes
-import VDPSupport.Pages.HomePage (homePage)
-import VDPSupport.Pages.InformationPage (informationPage)
-import VDPSupport.Pages.InformationPage.InformationPageTypes (MyTab(..), MyTabAction(..)) as InformationPageTypes
-import VDPSupport.Pages.OperationsPage (operationsPage)
-import VDPSupport.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..)) as OperationsPageTypes
-import VDPSupport.Pages.UnknownPage (unknownPage)
-import VDPSupport.Styles (sidebarItemStyle, sidebarStyle)
+import Prelude
+import Data.Either (either)
+import Data.Generic.Rep (class Generic)
+import Effect (Effect)
+import Routing.Duplex (RouteDuplex', parse, path, print, root)
+import Routing.Duplex.Generic (noArgs, sum)
+import Web.HTML (window)
+import Web.HTML.Location (pathname)
+import Web.HTML.Window (location)
 
--- To route, we start listening for route changes with `matches`
--- On each route change we push the route to a var
--- Then we listen on the var asynchronously from within the UI with `awaitRoute`
-routingWidget :: forall a. Widget HTML a
-routingWidget = do
-  routeRef <-
-    liftEffect
-      $ do
-          var <- Evar.empty
-          void $ matches myRoutes \_ route -> void $ Evar.tryPut route var
-          pure var
-  let
-    awaitRoute = liftAff $ Avar.take routeRef
-  -- HACK: This delay is only needed the first time
-  -- Since the page might still be loading,
-  -- and there are weird interactions between loading the homepage and the current route
-  liftAff (delay (Milliseconds 0.0))
-  sidebar <|> D.div [ P.style { "margin-left": "15.0%", "padding": "0px 10px" } ] [ go awaitRoute HomePage ]
-  where
-  go awaitRoute route = do
-    route' <- awaitRoute <|> pageForRoute route
-    go awaitRoute route'
-
--- Route and associated pages
-data MyRoute
+data Page
   = HomePage
   | OperationsPage
   | InformationPage
   | HelpPage
-  | UnknownPage
+  | NotFoundPage
 
-myRoutes :: Match MyRoute
-myRoutes =
+data PageActions
+  = GotoPage Page
+
+derive instance genericRoute :: Generic Route _
+
+data Route
+  = Home
+  | Operations
+  | Information
+  | Help
+  | NotFound
+
+routes :: RouteDuplex' Route
+routes =
   root
-    *> oneOf
-        [ HomePage <$ end
-        , OperationsPage <$ lit "operations" <* end
-        , InformationPage <$ lit "info" <* end
-        , HelpPage <$ lit "help" <* end
-        ]
+    $ sum
+        { "Home": path "home" noArgs
+        , "Operations": path "operations" noArgs
+        , "Information": path "information" noArgs
+        , "Help": path "help" noArgs
+        , "NotFound": path "notfound" noArgs
+        }
 
-pageForRoute :: forall a. MyRoute -> Widget HTML a
-pageForRoute HomePage = homePage
+parseRoute :: String -> Route
+parseRoute pathname = either (\_ -> NotFound) identity $ parse routes pathname
 
-pageForRoute OperationsPage = operationsPage OperationsPageTypes.ConsumerRestarts OperationsPageTypes.Click
+routeToPage :: Route -> Page
+routeToPage route = case route of
+  Home -> HomePage
+  Operations -> OperationsPage
+  Information -> InformationPage
+  Help -> HelpPage
+  NotFound -> NotFoundPage
 
-pageForRoute InformationPage = informationPage InformationPageTypes.ServerIPs InformationPageTypes.Click
+pageToRoute :: Page -> Route
+pageToRoute page = case page of
+  HomePage -> Home
+  OperationsPage -> Operations
+  InformationPage -> Information
+  HelpPage -> Help
+  NotFoundPage -> NotFound
 
-pageForRoute HelpPage = helpPage HelpPageTypes.ArchitectureDiagrams HelpPageTypes.Click
+printRoute :: Route -> String
+printRoute = print routes
 
-pageForRoute _ = unknownPage
-
-sidebar :: forall a. Widget HTML a
-sidebar =
-  D.div [ sidebarStyle ]
-    [ D.a [ sidebarItemStyle "40px", P.href "#/" ] [ D.text "Menu" ]
-    , D.a [ sidebarItemStyle "25px", P.href "#/" ] [ D.text "Home" ]
-    , D.a [ sidebarItemStyle "25px", P.href "#/operations" ] [ D.text "Operations" ]
-    , D.a [ sidebarItemStyle "25px", P.href "#/info" ] [ D.text "Information" ]
-    , D.a [ sidebarItemStyle "25px", P.href "#/help" ] [ D.text "Help" ]
-    ]
+currentRoute :: Effect Route
+currentRoute = do
+  window >>= location >>= pathname <#> parseRoute

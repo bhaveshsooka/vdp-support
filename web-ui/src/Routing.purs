@@ -1,4 +1,4 @@
-module Test.Routing
+module VDPSupport.Routing
   ( routingWidget
   ) where
 
@@ -16,15 +16,15 @@ import Effect.Class (liftEffect)
 import Prelude (bind, discard, pure, void, ($), (*>), (<$), (<*))
 import Routing.Hash (matches)
 import Routing.Match (Match, end, lit, root)
-import Test.Pages.HelpPage (helpPage)
-import Test.Pages.HelpPage.HelpPageTypes (MyTab(..), MyTabAction(..)) as HelpPageTypes
-import Test.Pages.HomePage (homePage)
-import Test.Pages.InformationPage (informationPage)
-import Test.Pages.InformationPage.InformationPageTypes (MyTab(..), MyTabAction(..)) as InformationPageTypes
-import Test.Pages.OperationsPage (operationsPage)
-import Test.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..)) as OperationsPageTypes
-import Test.Pages.UnknownPage (unknownPage)
-import Test.Styles (sidebarItemStyle, sidebarStyle)
+import VDPSupport.Pages.HelpPage (helpPage)
+import VDPSupport.Pages.HelpPage.HelpPageTypes (MyTab(..), MyTabAction(..)) as HelpPageTypes
+import VDPSupport.Pages.HomePage (homePage)
+import VDPSupport.Pages.InformationPage (informationPage)
+import VDPSupport.Pages.InformationPage.InformationPageTypes (MyTab(..), MyTabAction(..)) as InformationPageTypes
+import VDPSupport.Pages.OperationsPage (operationsPage)
+import VDPSupport.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..)) as OperationsPageTypes
+import VDPSupport.Pages.UnknownPage (unknownPage)
+import VDPSupport.Styles (sidebarItemStyle, sidebarStyle)
 
 -- To route, we start listening for route changes with `matches`
 -- On each route change we push the route to a var

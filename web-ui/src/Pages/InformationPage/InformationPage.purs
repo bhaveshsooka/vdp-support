@@ -1,4 +1,4 @@
-module Test.Pages.InformationPage where
+module VDPSupport.Pages.InformationPage where
 
 import Prelude
 
@@ -7,8 +7,8 @@ import Concur.React (HTML)
 import Concur.React.DOM as D
 import Concur.React.Props as P
 import Control.Alt ((<|>))
-import Test.Pages.InformationPage.InformationPageTypes (MyTab(..), MyTabAction(..))
-import Test.Styles (topbarItemStyle, topbarStyle)
+import VDPSupport.Pages.InformationPage.InformationPageTypes (MyTab(..), MyTabAction(..))
+import VDPSupport.Styles (topbarItemStyle, topbarStyle)
 
 informationPage :: forall a. MyTab -> MyTabAction -> Widget HTML a
 informationPage activeTab action = do

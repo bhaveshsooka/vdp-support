@@ -1,4 +1,4 @@
-module Test.Pages.HomePage where
+module VDPSupport.Pages.HomePage where
 
 import Concur.Core (Widget)
 import Concur.React (HTML)

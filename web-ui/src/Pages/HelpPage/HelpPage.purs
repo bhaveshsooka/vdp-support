@@ -1,4 +1,4 @@
-module Test.Pages.HelpPage where
+module VDPSupport.Pages.HelpPage where
 
 import Prelude
 
@@ -7,8 +7,8 @@ import Concur.React (HTML)
 import Concur.React.DOM as D
 import Concur.React.Props as P
 import Control.Alt ((<|>))
-import Test.Pages.HelpPage.HelpPageTypes (MyTab(..), MyTabAction(..))
-import Test.Styles (topbarItemStyle, topbarStyle)
+import VDPSupport.Pages.HelpPage.HelpPageTypes (MyTab(..), MyTabAction(..))
+import VDPSupport.Styles (topbarItemStyle, topbarStyle)
 
 helpPage :: forall a. MyTab -> MyTabAction -> Widget HTML a
 helpPage activeTab action = do

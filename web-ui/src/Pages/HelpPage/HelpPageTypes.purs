@@ -1,4 +1,4 @@
-module Test.Pages.HelpPage.HelpPageTypes
+module VDPSupport.Pages.HelpPage.HelpPageTypes
   ( MyTab(..)
   , MyTabAction(..)
   ) where

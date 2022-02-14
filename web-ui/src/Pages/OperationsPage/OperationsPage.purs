@@ -1,4 +1,4 @@
-module Test.Pages.OperationsPage
+module VDPSupport.Pages.OperationsPage
   ( operationsPage
   ) where
 
@@ -9,8 +9,8 @@ import Concur.React (HTML)
 import Concur.React.DOM as D
 import Concur.React.Props as P
 import Control.Alt ((<|>))
-import Test.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..))
-import Test.Styles (operationsButtonGroupsStyle, operationsButtonStyle, operationsContentStyle, topbarItemStyle, topbarStyle)
+import VDPSupport.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..))
+import VDPSupport.Styles (operationsButtonGroupsStyle, operationsButtonStyle, operationsContentStyle, topbarItemStyle, topbarStyle)
 
 operationsPage :: forall a. MyTab -> MyTabAction -> Widget HTML a
 operationsPage activeTab action = do

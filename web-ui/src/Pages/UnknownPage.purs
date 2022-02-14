@@ -1,4 +1,4 @@
-module Test.Pages.UnknownPage where
+module VDPSupport.Pages.UnknownPage where
 
 import Concur.Core (Widget)
 import Concur.React (HTML)

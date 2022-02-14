@@ -1,4 +1,4 @@
-module Test.Pages.OperationsPage.OperationsPageTypes
+module VDPSupport.Pages.OperationsPage.OperationsPageTypes
   ( MyTab(..)
   , MyTabAction(..)
   ) where

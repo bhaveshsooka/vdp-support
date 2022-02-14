@@ -1,4 +1,4 @@
-module Test.Styles
+module VDPSupport.Styles
   ( operationsButtonGroupsStyle
   , operationsButtonStyle
   , operationsContentStyle

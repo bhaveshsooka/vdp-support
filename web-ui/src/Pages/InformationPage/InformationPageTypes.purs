@@ -1,4 +1,4 @@
-module Test.Pages.InformationPage.InformationPageTypes
+module VDPSupport.Pages.InformationPage.InformationPageTypes
   ( MyTab(..)
   , MyTabAction(..)
   ) where

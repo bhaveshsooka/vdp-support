@@ -22,8 +22,8 @@ data TopbarAction
   | Hover TopbarItem
   | Unhover TopbarItem
 
-getItem :: TopbarAction -> TopbarItem
-getItem action = case action of
+getTopbarItem :: TopbarAction -> TopbarItem
+getTopbarItem action = case action of
   (Click item) -> item
   (Hover item) -> item
   (Unhover item) -> item

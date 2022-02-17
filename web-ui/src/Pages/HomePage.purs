@@ -4,7 +4,7 @@ import Prelude
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
-import VDPSupport.Topbar (TopbarAction(..), TopbarItem(..), TopbarItemArray, findActiveTab, getItem, topbarWidget, updateTabItems)
+import VDPSupport.Topbar (TopbarAction(..), TopbarItem(..), TopbarItemArray, findActiveTab, getTopbarItem, topbarWidget, updateTabItems)
 
 homePage :: forall a. Widget HTML a
 homePage = do
@@ -25,7 +25,7 @@ homePage_ currentAction currentTabItems = do
   newAction <-
     topbarWidget currentTabItems
       $ renderTabContent currentAction
-      $ findActiveTab currentTabItems (getItem currentAction)
+      $ findActiveTab currentTabItems (getTopbarItem currentAction)
   let
     newTabItems = updateTabItems newAction currentTabItems
   homePage_ newAction newTabItems

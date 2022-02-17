@@ -8,7 +8,7 @@ import Effect (Effect)
 import Effect.Class (liftEffect)
 import Foreign (unsafeToForeign)
 import Routing.PushState (PushStateInterface, makeInterface)
-import VDPSupport.CommonComponents (sidebarWidget)
+import VDPSupport.Sidebar (sidebarWidget)
 import VDPSupport.Pages.HelpPage (helpPage)
 import VDPSupport.Pages.HelpPage.HelpPageTypes as HelpPageTypes
 import VDPSupport.Pages.HomePage (homePage)

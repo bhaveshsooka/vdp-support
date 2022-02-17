@@ -1,4 +1,4 @@
-module VDPSupport.CommonComponents where
+module VDPSupport.Sidebar where
 
 import Prelude
 import Concur.Core (Widget)
@@ -19,4 +19,3 @@ sidebarWidget component =
     , D.a [ sidebarItemStyle "25px", P.onClick $> (GotoPage HelpPage) ] [ D.text "Help" ]
     ]
     <|> D.div [ P.style { "marginLeft": "15.0%", "padding": "0px 10px" } ] [ component ]
-

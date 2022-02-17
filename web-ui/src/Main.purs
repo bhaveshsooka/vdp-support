@@ -16,13 +16,12 @@ import VDPSupport.Pages.InformationPage (informationPage)
 import VDPSupport.Pages.InformationPage.InformationPageTypes as InformationPageTypes
 import VDPSupport.Pages.NotFoundPage (notFoundPage)
 import VDPSupport.Pages.OperationsPage (operationsPage)
-import VDPSupport.Pages.OperationsPage.OperationsPageTypes as OperationsPageTypes
 import VDPSupport.Routing (Page(..), PageActions(..), currentRoute, pageToRoute, parseRoute, printRoute, routeToPage)
 
 renderPage :: Page -> Widget HTML PageActions
 renderPage page = case page of
   HomePage -> homePage
-  OperationsPage -> operationsPage OperationsPageTypes.ConsumerRestarts OperationsPageTypes.Click
+  OperationsPage -> operationsPage
   InformationPage -> informationPage InformationPageTypes.ServerIPs InformationPageTypes.Click
   HelpPage -> helpPage HelpPageTypes.ArchitectureDiagrams HelpPageTypes.Click
   NotFoundPage -> notFoundPage

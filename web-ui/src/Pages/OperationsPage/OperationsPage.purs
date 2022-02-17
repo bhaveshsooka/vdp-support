@@ -3,44 +3,48 @@ module VDPSupport.Pages.OperationsPage
   ) where
 
 import Prelude
-
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
-import Concur.React.Props as P
-import Control.Alt ((<|>))
 import Data.Argonaut.Core (Json)
 import Data.Argonaut.Decode (class DecodeJson, JsonDecodeError, decodeJson, (.:))
 import Data.Either (Either)
 import Data.Traversable (traverse)
-import VDPSupport.Pages.OperationsPage.OperationsPageTypes (MyTab(..), MyTabAction(..))
-import VDPSupport.Styles (operationsButtonGroupsStyle, operationsButtonStyle, operationsContentStyle, topbarItemStyle, topbarStyle)
+import VDPSupport.Styles (operationsButtonGroupsStyle, operationsButtonStyle, operationsContentStyle)
+import VDPSupport.Topbar (TopbarAction(..), TopbarItem(..), TopbarItemArray, findActiveTab, getTopbarItem, topbarWidget, updateTabItems)
 
-operationsPage :: forall a. MyTab -> MyTabAction -> Widget HTML a
-operationsPage activeTab action = do
-  selectedTab <-
-    D.div [ topbarStyle ]
-      [ D.a
-          [ topbarItemStyle (ConsumerRestarts == activeTab) (action == Hover)
-          , P.onClick $> Click
-          -- , P.onMouseLeave $> Unhover
-          -- , P.onMouseOver $> Hover
-          ]
-          [ D.text "Consumer Restarts" ]
-          $> ConsumerRestarts
-      , D.a
-          [ topbarItemStyle (HealthChecks == activeTab) (action == Hover)
-          , P.onClick $> Click
-          -- , P.onMouseLeave $> Unhover
-          -- , P.onMouseOver $> Hover
-          ]
-          [ D.text "Health Checks" ]
-          $> HealthChecks
-      ]
-      <|> case activeTab of
-          ConsumerRestarts -> consumerRestartsContent
-          HealthChecks -> healthCheckContent
-  operationsPage selectedTab action
+operationsPage :: forall a. Widget HTML a
+operationsPage = operationsPage_ activeItem tabItems
+  where
+  activeItem :: TopbarAction
+  activeItem = (Click $ TopbarItem { name: "Consumer Restarts", active: true, hover: false })
+
+  tabItems :: TopbarItemArray
+  tabItems =
+    [ TopbarItem { name: "Consumer Restarts", active: true, hover: false }
+    , TopbarItem { name: "Health Checks", active: false, hover: false }
+    ]
+
+operationsPage_ :: forall a. TopbarAction -> TopbarItemArray -> Widget HTML a
+operationsPage_ currentAction currentTabItems = do
+  newAction <-
+    topbarWidget currentTabItems
+      $ renderTabContent currentAction
+      $ findActiveTab currentTabItems (getTopbarItem currentAction)
+  let
+    newTabItems = updateTabItems newAction currentTabItems
+  operationsPage_ newAction newTabItems
+
+renderTabContent :: TopbarAction -> TopbarItem -> Widget HTML TopbarAction
+renderTabContent action activeItem = case action of
+  Click (TopbarItem newItem) -> render' (TopbarItem newItem)
+  _ -> render' activeItem
+  where
+  render' :: TopbarItem -> Widget HTML TopbarAction
+  render' (TopbarItem item) = case item.name of
+    "Consumer Restarts" -> consumerRestartsContent
+    "Health Checks" -> healthCheckContent
+    _ -> D.div' [ D.text "Unknown tab" ]
 
 newtype ConsumerServiceInfo
   = ConsumerServiceInfo
@@ -90,21 +94,18 @@ consumerRestartsContent =
       , D.button [ operationsButtonStyle "#04AA6D" ] [ D.text "Restart" ]
       ]
 
-  -- showData = (map buttonGroups fetchData)
-
-  -- fetchData = do
-  --   let
-  --     url = "http://localhost:3000/vdp-services/consumers"
-  --   httpResult <- (liftAff (AX.get ResponseFormat.json url)) <|> (D.text "Loading...")
-  --   case httpResult of
-  --     Left err -> D.text $ "GET " <> url <> " response failed: " <> AX.printError err
-  --     Right response ->
-  --       case (decodeConsumerServiceInfoArray response.body) of
-  --         Left err -> D.text ("Decode json error: " <> show err)
-  --         Right consumerServices -> map buttonGroups consumerServices
-            -- fetchData
-
-
+-- showData = (map buttonGroups fetchData)
+-- fetchData = do
+--   let
+--     url = "http://localhost:3000/vdp-services/consumers"
+--   httpResult <- (liftAff (AX.get ResponseFormat.json url)) <|> (D.text "Loading...")
+--   case httpResult of
+--     Left err -> D.text $ "GET " <> url <> " response failed: " <> AX.printError err
+--     Right response ->
+--       case (decodeConsumerServiceInfoArray response.body) of
+--         Left err -> D.text ("Decode json error: " <> show err)
+--         Right consumerServices -> map buttonGroups consumerServices
+-- fetchData
 -- fetchReddit :: forall a. String -> Widget HTML a
 -- fetchReddit sub =
 --   div'

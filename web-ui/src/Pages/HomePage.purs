@@ -4,7 +4,7 @@ import Prelude
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
-import VDPSupport.CommonComponents (TopbarAction(..), TopbarItem(..), TopbarItemArray, findActiveTab, getItem, topbarWidget, updateTabItems)
+import VDPSupport.Topbar (TopbarAction(..), TopbarItem(..), TopbarItemArray, findActiveTab, getItem, topbarWidget, updateTabItems)
 
 homePage :: forall a. Widget HTML a
 homePage = do

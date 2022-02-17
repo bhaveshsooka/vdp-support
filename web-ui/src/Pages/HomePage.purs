@@ -1,4 +1,6 @@
-module VDPSupport.Pages.HomePage where
+module VDPSupport.Pages.HomePage
+  ( homePage
+  ) where
 
 import Prelude
 import Concur.Core (Widget)
@@ -7,8 +9,7 @@ import Concur.React.DOM as D
 import VDPSupport.Topbar (TopbarAction(..), TopbarItem(..), TopbarItemArray, findActiveTab, getTopbarItem, topbarWidget, updateTabItems)
 
 homePage :: forall a. Widget HTML a
-homePage = do
-  homePage_ activeItem tabItems
+homePage = homePage_ activeItem tabItems
   where
   activeItem :: TopbarAction
   activeItem = (Click $ TopbarItem { name: "section1", active: true, hover: false })

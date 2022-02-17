@@ -8,6 +8,7 @@ import Effect (Effect)
 import Effect.Class (liftEffect)
 import Foreign (unsafeToForeign)
 import Routing.PushState (PushStateInterface, makeInterface)
+import VDPSupport.CommonComponents (sidebarWidget)
 import VDPSupport.Pages.HelpPage (helpPage)
 import VDPSupport.Pages.HelpPage.HelpPageTypes as HelpPageTypes
 import VDPSupport.Pages.HomePage (homePage)
@@ -17,7 +18,6 @@ import VDPSupport.Pages.NotFoundPage (notFoundPage)
 import VDPSupport.Pages.OperationsPage (operationsPage)
 import VDPSupport.Pages.OperationsPage.OperationsPageTypes as OperationsPageTypes
 import VDPSupport.Routing (Page(..), PageActions(..), currentRoute, pageToRoute, parseRoute, printRoute, routeToPage)
-import VDPSupport.CommonComponents (sidebarWidget)
 
 renderPage :: Page -> Widget HTML PageActions
 renderPage page = case page of
@@ -27,13 +27,13 @@ renderPage page = case page of
   HelpPage -> helpPage HelpPageTypes.ArchitectureDiagrams HelpPageTypes.Click
   NotFoundPage -> notFoundPage
 
-changeInterface :: PushStateInterface -> Widget HTML PageActions -> Widget HTML PageActions
-changeInterface interface component = do
+handlePageChanges :: PushStateInterface -> Widget HTML PageActions -> Widget HTML PageActions
+handlePageChanges interface component = do
   action <- component
   case action of
     GotoPage page -> do
       _ <- liftEffect $ interface.pushState (unsafeToForeign {}) (printRoute $ pageToRoute $ page)
-      changeInterface interface component
+      handlePageChanges interface component
 
 main :: Effect Unit
 main = do
@@ -44,7 +44,7 @@ main = do
   where
   render' interface route =
     runWidgetInDom "root"
-      $ changeInterface interface
+      $ handlePageChanges interface
       $ sidebarWidget
       $ renderPage
       $ routeToPage route

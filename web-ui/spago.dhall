@@ -12,18 +12,26 @@ to generate this file without the comments in this block.
 -}
 { name = "my-project"
 , dependencies =
-  [ "concur-core"
+  [ "aff"
+  , "affjax"
+  , "argonaut-codecs"
+  , "argonaut-core"
+  , "avar"
+  , "concur-core"
   , "concur-react"
   , "console"
   , "control"
   , "effect"
   , "either"
+  , "foldable-traversable"
   , "foreign"
+  , "maybe"
   , "prelude"
   , "psci-support"
   , "routing"
   , "routing-duplex"
   , "web-html"
+  , "web-xhr"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]

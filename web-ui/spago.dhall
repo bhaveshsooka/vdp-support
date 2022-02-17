@@ -16,6 +16,7 @@ to generate this file without the comments in this block.
   , "affjax"
   , "argonaut-codecs"
   , "argonaut-core"
+  , "arrays"
   , "avar"
   , "concur-core"
   , "concur-react"

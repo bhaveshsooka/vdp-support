@@ -1,24 +1,27 @@
-module VDPSupport.Pages.InformationPage where
+module VDPSupport.Pages.InformationPage
+  ( informationPage
+  ) where
 
 import Prelude
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
+import Data.Array (cons)
 import VDPSupport.Topbar (TopbarAction(..), TopbarItem(..), TopbarItemArray, findActiveTab, getTopbarItem, topbarWidget, updateTabItems)
 
 informationPage :: forall a. Widget HTML a
-informationPage = informationPage_ activeItem tabItems
+informationPage = informationPage_ (Click activeItem) tabItems
   where
-  activeItem :: TopbarAction
-  activeItem = (Click $ TopbarItem { name: "Server IPs", active: true, hover: false })
+  activeItem :: TopbarItem
+  activeItem = TopbarItem { name: "Server IPs", active: true, hover: false }
 
   tabItems :: TopbarItemArray
   tabItems =
-    [ TopbarItem { name: "Server IPs", active: true, hover: false }
-    , TopbarItem { name: "Applications List", active: false, hover: false }
-    , TopbarItem { name: "FTP Directories", active: false, hover: false }
-    , TopbarItem { name: "Useful Commands", active: false, hover: false }
-    ]
+    cons activeItem
+      [ TopbarItem { name: "Applications List", active: false, hover: false }
+      , TopbarItem { name: "FTP Directories", active: false, hover: false }
+      , TopbarItem { name: "Useful Commands", active: false, hover: false }
+      ]
 
 informationPage_ :: forall a. TopbarAction -> TopbarItemArray -> Widget HTML a
 informationPage_ currentAction currentTabItems = do

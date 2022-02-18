@@ -8,22 +8,23 @@ import Concur.React (HTML)
 import Concur.React.DOM as D
 import Data.Argonaut.Core (Json)
 import Data.Argonaut.Decode (class DecodeJson, JsonDecodeError, decodeJson, (.:))
+import Data.Array (cons)
 import Data.Either (Either)
 import Data.Traversable (traverse)
 import VDPSupport.Styles (operationsButtonGroupsStyle, operationsButtonStyle, operationsContentStyle)
 import VDPSupport.Topbar (TopbarAction(..), TopbarItem(..), TopbarItemArray, findActiveTab, getTopbarItem, topbarWidget, updateTabItems)
 
 operationsPage :: forall a. Widget HTML a
-operationsPage = operationsPage_ activeItem tabItems
+operationsPage = operationsPage_ (Click activeItem) tabItems
   where
-  activeItem :: TopbarAction
-  activeItem = (Click $ TopbarItem { name: "Consumer Restarts", active: true, hover: false })
+  activeItem :: TopbarItem
+  activeItem = TopbarItem { name: "Consumer Restarts", active: true, hover: false }
 
   tabItems :: TopbarItemArray
   tabItems =
-    [ TopbarItem { name: "Consumer Restarts", active: true, hover: false }
-    , TopbarItem { name: "Health Checks", active: false, hover: false }
-    ]
+    cons activeItem
+      [ TopbarItem { name: "Health Checks", active: false, hover: false }
+      ]
 
 operationsPage_ :: forall a. TopbarAction -> TopbarItemArray -> Widget HTML a
 operationsPage_ currentAction currentTabItems = do

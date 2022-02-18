@@ -10,10 +10,8 @@ import Foreign (unsafeToForeign)
 import Routing.PushState (PushStateInterface, makeInterface)
 import VDPSupport.Sidebar (sidebarWidget)
 import VDPSupport.Pages.HelpPage (helpPage)
-import VDPSupport.Pages.HelpPage.HelpPageTypes as HelpPageTypes
 import VDPSupport.Pages.HomePage (homePage)
 import VDPSupport.Pages.InformationPage (informationPage)
-import VDPSupport.Pages.InformationPage.InformationPageTypes as InformationPageTypes
 import VDPSupport.Pages.NotFoundPage (notFoundPage)
 import VDPSupport.Pages.OperationsPage (operationsPage)
 import VDPSupport.Routing (Page(..), PageActions(..), currentRoute, pageToRoute, parseRoute, printRoute, routeToPage)
@@ -22,8 +20,8 @@ renderPage :: Page -> Widget HTML PageActions
 renderPage page = case page of
   HomePage -> homePage
   OperationsPage -> operationsPage
-  InformationPage -> informationPage InformationPageTypes.ServerIPs InformationPageTypes.Click
-  HelpPage -> helpPage HelpPageTypes.ArchitectureDiagrams HelpPageTypes.Click
+  InformationPage -> informationPage
+  HelpPage -> helpPage
   NotFoundPage -> notFoundPage
 
 handlePageChanges :: PushStateInterface -> Widget HTML PageActions -> Widget HTML PageActions

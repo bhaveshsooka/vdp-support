@@ -15,16 +15,13 @@ to generate this file without the comments in this block.
   [ "aff"
   , "affjax"
   , "argonaut-codecs"
-  , "argonaut-core"
   , "arrays"
-  , "avar"
   , "concur-core"
   , "concur-react"
   , "console"
   , "control"
   , "effect"
   , "either"
-  , "foldable-traversable"
   , "foreign"
   , "maybe"
   , "prelude"
@@ -34,7 +31,6 @@ to generate this file without the comments in this block.
   , "simple-json"
   , "unsafe-coerce"
   , "web-html"
-  , "web-xhr"
   ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]

@@ -25,13 +25,14 @@ sidebarStyle =
     , "paddingTop": "10px"
     }
 
-sidebarItemStyle :: String -> forall a. P.ReactProps a
-sidebarItemStyle fontSize =
+sidebarItemStyle :: forall a. String -> Boolean -> Boolean -> P.ReactProps a
+sidebarItemStyle fontSize active hover =
   P.style
     { "padding": "6px 8px 6px 16px"
     , "textDecoration": "none"
-    , "color": "#818181"
     , "display": "block"
+    , "backgroundColor": "#111"
+    , "color": setColor active "#04AA6D" $ setColor hover "white" "#818181"
     , "fontSize": fontSize
     }
 

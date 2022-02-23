@@ -27,6 +27,11 @@ import VDPSupport.Sidebar (SidebarAction(..), SidebarItem(..), SidebarItemArray,
 -- Description  : When a page is loaded it's initial state is 'hard-coded' and a resultant reset rendered view
 -- Solution     : TabAction model needs to parameterize state
 --
+-- Issue #3
+-- Name         : Too many HTTP calls
+-- Description  : HTTP calls made on every action on the topbar + sidebar components
+-- Solution     : ??
+-- 
 ----------------------------------------------------------------
 -- main :: Effect Unit
 -- main = do

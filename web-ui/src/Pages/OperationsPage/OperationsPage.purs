@@ -8,6 +8,7 @@ import Affjax.ResponseFormat as ResponseFormat
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
+import Control.Alt ((<|>))
 import Data.Argonaut.Decode (class DecodeJson, decodeJson, (.:))
 import Data.Array (cons)
 import Data.Either (Either(..))
@@ -70,16 +71,16 @@ consumerRestartsContent ∷ forall a. Widget HTML a
 consumerRestartsContent = do
   let
     url = "http://localhost:3000/vdp-services/consumers"
-  res <- liftAff $ AX.get ResponseFormat.json url
+  res <- (liftAff $ AX.get ResponseFormat.json url) <|> D.div [ operationsContentStyle ] [ D.text "Loading..." ]
   case res of
     Left err -> do
-      D.div' [ D.text $ "GET " <> url <> " There was a problem making the request: " <> AX.printError err ]
+      D.div [ operationsContentStyle ] [ D.text $ "GET " <> url <> " There was a problem making the request: " <> AX.printError err ]
     Right response -> do
       case decodeJson response.body of
         Right (r :: ConsumerServiceInfoArray) -> do
           D.div [ operationsContentStyle ] (map buttonGroups r)
         Left e -> do
-          D.div' [ D.text $ "Can't parse JSON. : " <> show e ]
+          D.div [ operationsContentStyle ] [ D.text $ "Can't parse JSON. : " <> show e ]
   where
   buttonGroups :: forall b. ConsumerServiceInfo -> Widget HTML b
   buttonGroups (ConsumerServiceInfo consumerService) =
@@ -109,16 +110,16 @@ healthCheckContent :: forall a. Widget HTML a
 healthCheckContent = do
   let
     url = "http://localhost:3000/vdp-services/health-check-services"
-  res <- liftAff $ AX.get ResponseFormat.json url
+  res <- (liftAff $ AX.get ResponseFormat.json url) <|> D.div [ operationsContentStyle ] [ D.text "Loading..." ]
   case res of
     Left err -> do
-      D.div' [ D.text $ "GET " <> url <> " There was a problem making the request: " <> AX.printError err ]
+      D.div [ operationsContentStyle ] [ D.text $ "GET " <> url <> " There was a problem making the request: " <> AX.printError err ]
     Right response -> do
       case decodeJson response.body of
         Right (r :: HealthCheckInfoArray) -> do
           D.div [ operationsContentStyle ] (map buttonGroups r)
         Left e -> do
-          D.div' [ D.text $ "Can't parse JSON. : " <> show e ]
+          D.div [ operationsContentStyle ] [ D.text $ "Can't parse JSON. : " <> show e ]
   where
   buttonGroups :: forall b. HealthCheckInfo -> Widget HTML b
   buttonGroups (HealthCheckInfo consumerService) =

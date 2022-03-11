@@ -14,7 +14,7 @@ import VDPSupport.Pages.HomePage (homePage)
 import VDPSupport.Pages.InformationPage (informationPage)
 import VDPSupport.Pages.NotFoundPage (notFoundPage)
 import VDPSupport.Pages.OperationsPage (operationsPage)
-import VDPSupport.Sidebar (SidebarAction(..), SidebarItem(..), SidebarItemArray, findActiveItem, getSidebarItem, sidebarWidget, updateTabItems)
+import VDPSupport.Sidebar (SidebarAction(..), SidebarItem(..), SidebarItemArray, sidebarWidget, updateTabItems)
 
 ----------------------------------------------------------------
 -- Issue #1
@@ -22,16 +22,6 @@ import VDPSupport.Sidebar (SidebarAction(..), SidebarItem(..), SidebarItemArray,
 -- Description  : Cannot handle events and implement routing in the same solution
 -- Solution     : On actionHandler for sidebar events, maintain tabItems as state (push/pop)
 --
--- Issue #2
--- Name         : Component rendering - init state 
--- Description  : When a page is loaded it's initial state is 'hard-coded' and a resultant reset rendered view
--- Solution     : TabAction model needs to parameterize state
---
--- Issue #3
--- Name         : Too many HTTP calls
--- Description  : HTTP calls made on every action on the topbar + sidebar components
--- Solution     : ??
--- 
 ----------------------------------------------------------------
 -- main :: Effect Unit
 -- main = do
@@ -91,14 +81,15 @@ renderMain :: forall a. Widget HTML a
 renderMain = renderMain_ (Click activeItem) tabItems
   where
   activeItem :: SidebarItem
-  activeItem = SidebarItem { name: "Menu", fontSize: "40px", active: true, hover: false }
+  activeItem = SidebarItem { name: "Menu", fontSize: "40px", active: true }
+
   tabItems :: SidebarItemArray
   tabItems =
     cons activeItem
-      [ SidebarItem { name: "Home", fontSize: "25px", active: false, hover: false }
-      , SidebarItem { name: "Operations", fontSize: "25px", active: false, hover: false }
-      , SidebarItem { name: "Information", fontSize: "25px", active: false, hover: false }
-      , SidebarItem { name: "Help", fontSize: "25px", active: false, hover: false }
+      [ SidebarItem { name: "Home", fontSize: "25px", active: false }
+      , SidebarItem { name: "Operations", fontSize: "25px", active: false }
+      , SidebarItem { name: "Information", fontSize: "25px", active: false }
+      , SidebarItem { name: "Help", fontSize: "25px", active: false }
       ]
 
 renderMain_ :: forall a. SidebarAction -> SidebarItemArray -> Widget HTML a
@@ -106,16 +97,13 @@ renderMain_ currentAction currentTabItems = do
   newAction <-
     sidebarWidget currentTabItems
       $ renderPage currentAction
-      $ findActiveItem currentTabItems (getSidebarItem currentAction)
   let
     newTabItems = updateTabItems newAction currentTabItems
   renderMain_ newAction newTabItems
 
-renderPage :: SidebarAction -> SidebarItem -> Widget HTML SidebarAction
-renderPage action activeItem = case action of
-  Click (SidebarItem newItem) -> do
-    render' $ SidebarItem newItem
-  _ -> render' activeItem
+renderPage :: SidebarAction -> Widget HTML SidebarAction
+renderPage action = case action of
+  Click (SidebarItem newItem) -> render' $ SidebarItem newItem
   where
   render' :: SidebarItem -> Widget HTML SidebarAction
   render' (SidebarItem item) = case item.name of

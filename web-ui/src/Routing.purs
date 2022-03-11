@@ -5,11 +5,9 @@ module VDPSupport.Routing
   , parseRoute
   , printRoute
   , routeToPage
-  )
-  where
+  ) where
 
 import Prelude
-
 import Data.Either (either)
 import Data.Generic.Rep (class Generic)
 import Data.Show.Generic (genericShow)
@@ -53,11 +51,11 @@ parseRoute pathname = either (\_ -> NotFound) identity $ parse routes pathname
 
 routeToPage :: Route -> SidebarItem
 routeToPage route = case route of
-  Home -> SidebarItem { name: "Home", fontSize: "40px", active: true, hover: false }
-  Operations -> SidebarItem { name: "Operations", fontSize: "25px", active: false, hover: false }
-  Information -> SidebarItem { name: "Information", fontSize: "25px", active: false, hover: false }
-  Help -> SidebarItem { name: "Help", fontSize: "25px", active: false, hover: false }
-  NotFound -> SidebarItem { name: "Unknown", fontSize: "25px", active: false, hover: false }
+  Home -> SidebarItem { name: "Home", fontSize: "40px", active: false }
+  Operations -> SidebarItem { name: "Operations", fontSize: "25px", active: false }
+  Information -> SidebarItem { name: "Information", fontSize: "25px", active: false }
+  Help -> SidebarItem { name: "Help", fontSize: "25px", active: false }
+  NotFound -> SidebarItem { name: "Unknown", fontSize: "25px", active: false }
 
 pageToRoute :: SidebarItem -> Route
 pageToRoute (SidebarItem item) = case item.name of

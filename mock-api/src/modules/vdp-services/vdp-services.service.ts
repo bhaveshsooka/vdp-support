@@ -4,15 +4,16 @@ import { Injectable } from '@nestjs/common';
 export class VdpServicesService {
   findAllHealthCheckServices() {
     return [
-      { serviceName: 'service1', healthCheckEndpoint: 'http:service1/health' },
-      { serviceName: 'service2', healthCheckEndpoint: 'http:service2/health' },
-      { serviceName: 'service3', healthCheckEndpoint: 'http:service3/health' },
-      { serviceName: 'service4', healthCheckEndpoint: 'http:service4/health' },
-      { serviceName: 'service5', healthCheckEndpoint: 'http:service5/health' },
-      { serviceName: 'service6', healthCheckEndpoint: 'http:service6/health' },
-      { serviceName: 'service7', healthCheckEndpoint: 'http:service7/health' },
-      { serviceName: 'service8', healthCheckEndpoint: 'http:service8/health' },
-      { serviceName: 'service9', healthCheckEndpoint: 'http:service9/health' },
+      { serviceName: 'service1', healthCheckEndpoint: 'http://localhost:3000/vdp-services/health-check-services' },
+      { serviceName: 'service2', healthCheckEndpoint: 'http://localhost:3000/vdp-services/health-check-services' },
+      { serviceName: 'service3', healthCheckEndpoint: 'http://localhost:3000/vdp-services/healdfth-check-services' },
+      { serviceName: 'service4', healthCheckEndpoint: 'http://localhost:300/vdp-services/health-check-services' },
+      { serviceName: 'service5', healthCheckEndpoint: 'http://localhost:3000/vdp-services/health-check-services' },
+      { serviceName: 'service6', healthCheckEndpoint: 'http://localhost:3000/vdp-services/headflth-check-services' },
+      { serviceName: 'service7', healthCheckEndpoint: 'http://localhost:3000/vdp-services/health-check-services' },
+      { serviceName: 'service8', healthCheckEndpoint: 'http://localhost:3000/vdp-services/health-check-services' },
+      { serviceName: 'service9', healthCheckEndpoint: 'http://localhost:3000/vdp-services/hdfealth-check-services' },
+      { serviceName: 'service10', healthCheckEndpoint: 'http://localhost:3000/vdp-services/health-check-services' },
     ];
   }
 

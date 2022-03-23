@@ -1,12 +1,18 @@
 module VDPSupport.Styles
-  ( operationsButtonGroupsStyle
+  ( healthCheckLegendItemWidgetStyle
+  , healthCheckLegendWidgetStyle
+  , healthCheckStatusWidgetStyle
+  , operationsButtonGroupsStyle
   , operationsButtonStyle
   , operationsContentStyle
+  , setColor
   , sidebarItemStyle
   , sidebarStyle
+  , tableStyle
   , topbarItemStyle
   , topbarStyle
-  ) where
+  )
+  where
 
 import Prelude
 import Concur.React.Props as P
@@ -41,7 +47,7 @@ topbarStyle =
   P.style
     { "backgroundColor": "#333"
     , "overflow": "hidden"
-    , "marginBottom": "10px"
+    , "marginBottom": "30px"
     }
 
 topbarItemStyle :: forall a. Boolean -> Boolean -> P.ReactProps a
@@ -61,6 +67,7 @@ operationsContentStyle =
   P.style
     { "display": "flex"
     , "flexWrap": "wrap"
+    , "justifyContent": "center"
     }
 
 operationsButtonGroupsStyle :: forall a. P.ReactProps a
@@ -85,7 +92,44 @@ operationsButtonStyle color =
     , "display": "inline-block"
     , "fontSize": "16px"
     , "margin": "4px 2px"
+    }
+
+tableStyle :: forall a. P.ReactProps a
+tableStyle =
+  P.style
+    { "width": "100%"
+    , "border": "1px solid black"
+    , "textAlign": "center"
+    , "tableLayout": "fixed"
+    , "marginBottom": "15px"
+    , "borderCollapse": "collapse"
+    }
+
+healthCheckStatusWidgetStyle :: forall a. String -> P.ReactProps a
+healthCheckStatusWidgetStyle color =
+  P.style
+    { "backgroundColor": color
+    , "height": "25px"
+    , "width": "25px"
     , "borderRadius": "50%"
+    , "display": "inline-block"
+    , "margin": "0px 10px"
+    }
+
+healthCheckLegendWidgetStyle :: forall a. P.ReactProps a
+healthCheckLegendWidgetStyle =
+  P.style
+    { "border": "1px solid #000"
+    , "display": "flex"
+    , "justifyContent": "space-evenly"
+    }
+
+healthCheckLegendItemWidgetStyle :: forall a. P.ReactProps a
+healthCheckLegendItemWidgetStyle =
+  P.style
+    { "display": "flex"
+    , "alignItems": "center"
+    , "justifyContent": "center"
     }
 
 --------------------------------------------------------------------------------------------------

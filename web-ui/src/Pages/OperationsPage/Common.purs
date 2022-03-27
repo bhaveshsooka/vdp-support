@@ -32,6 +32,12 @@ tableWidget tableHeadingsWidget tableRowItems = D.table [ tableStyle ] [ D.tbody
 serviceStatusWidget :: forall a. String -> Widget HTML a
 serviceStatusWidget color = D.span [ serviceStatusWidgetStyle color ] []
 
+pauseIconWidget :: String -> Widget HTML ButtonClickAction
+pauseIconWidget size = iconWidget "fa fa-pause" size (P.onClick $> PauseConsumer)
+
+resumeIconWidget :: String -> Widget HTML ButtonClickAction
+resumeIconWidget size = iconWidget "fa fa-play" size (P.onClick $> ResumeConsumer)
+
 refreshIconWidget :: String -> Widget HTML ButtonClickAction
 refreshIconWidget size = iconWidget "fa fa-refresh" size (P.onClick $> Refresh)
 

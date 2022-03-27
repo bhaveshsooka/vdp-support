@@ -5,6 +5,8 @@ import Concur.React (HTML)
 
 data ButtonClickAction
   = Refresh
+  | PauseConsumer
+  | ResumeConsumer
 
 type LegendItem
   = { widget :: forall a. Widget HTML a
@@ -22,4 +24,20 @@ type HealthCheckInfo
 type HealthCheckInfoArray
   = Array HealthCheckInfo
 
+type MarketInfo
+  = { marketName :: String
+    , consumers :: ConsumerServiceInfoArray
+    }
 
+type MarketInfoArray
+  = Array MarketInfo
+
+type ConsumerServiceInfo
+  = { ipAddress :: String
+    , statusEndpoint :: String
+    , pauseEndpoint :: String
+    , resumeEndpoint :: String
+    }
+
+type ConsumerServiceInfoArray
+  = Array ConsumerServiceInfo

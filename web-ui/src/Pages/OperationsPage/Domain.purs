@@ -3,6 +3,9 @@ module VDPSupport.Pages.OperationsPage.Domain where
 import Concur.Core (Widget)
 import Concur.React (HTML)
 
+data ButtonClickAction
+  = Refresh
+
 type LegendItem
   = { widget :: forall a. Widget HTML a
     , label :: String
@@ -19,5 +22,4 @@ type HealthCheckInfo
 type HealthCheckInfoArray
   = Array HealthCheckInfo
 
-data ButtonAction
-  = Refresh
+

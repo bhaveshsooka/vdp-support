@@ -13,7 +13,7 @@ import Data.Either (Either(..))
 import Effect.Aff.Class (liftAff)
 import VDPSupport.HTTP (getRequest)
 import VDPSupport.Pages.OperationsPage.Common (legendWidget, loadingIconWidget, refreshIconWidget, serviceStatusWidget, tableWidget)
-import VDPSupport.Pages.OperationsPage.Domain (ButtonAction, HealthCheckInfoArray, LegendItemArray)
+import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction, HealthCheckInfoArray, LegendItemArray)
 import VDPSupport.Pages.OperationsPage.Styles (pageStyle)
 
 -- Data
@@ -51,7 +51,7 @@ healthCheckContent = do
 healthCheckLegendWidget :: forall a. Widget HTML a
 healthCheckLegendWidget = (legendWidget "Color code" healthCheckLegendItems)
 
-healthCheckStatusTable :: HealthCheckInfoArray -> Widget HTML ButtonAction
+healthCheckStatusTable :: HealthCheckInfoArray -> Widget HTML ButtonClickAction
 healthCheckStatusTable healthCheckServiceArray = tableWidget healthCheckTableHeadingsWidget healthCheckTableRowsWidget
   where
   healthCheckTableHeadingsWidget =

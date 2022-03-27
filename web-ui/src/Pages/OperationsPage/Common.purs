@@ -7,7 +7,7 @@ import Concur.React (HTML)
 import Concur.React.DOM as D
 import Concur.React.Props as P
 import Data.Array (cons)
-import VDPSupport.Pages.OperationsPage.Domain (ButtonAction(..), LegendItem, LegendItemArray)
+import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction(..), LegendItem, LegendItemArray)
 import VDPSupport.Pages.OperationsPage.Styles (iconStyle, legendItemWidgetStyle, legendWidgetStyle, serviceStatusWidgetStyle, tableStyle)
 
 legendWidget :: forall a. String -> LegendItemArray -> Widget HTML a
@@ -32,7 +32,7 @@ tableWidget tableHeadingsWidget tableRowItems = D.table [ tableStyle ] [ D.tbody
 serviceStatusWidget :: forall a. String -> Widget HTML a
 serviceStatusWidget color = D.span [ serviceStatusWidgetStyle color ] []
 
-refreshIconWidget :: String -> Widget HTML ButtonAction
+refreshIconWidget :: String -> Widget HTML ButtonClickAction
 refreshIconWidget size = iconWidget "fa fa-refresh" size (P.onClick $> Refresh)
 
 loadingIconWidget :: forall a. String -> Widget HTML a

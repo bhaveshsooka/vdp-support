@@ -1,14 +1,33 @@
 module VDPSupport.Pages.OperationsPage.Common where
 
 import Prelude
-
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
 import Concur.React.Props as P
 import Data.Array (cons)
-import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction(..), LegendItem, LegendItemArray)
-import VDPSupport.Pages.OperationsPage.Styles (iconStyle, legendItemWidgetStyle, legendWidgetStyle, serviceStatusWidgetStyle, tableStyle)
+import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction(..), ConfirmDialogAction(..), LegendItem, LegendItemArray, ConsumerServiceInfo)
+import VDPSupport.Pages.OperationsPage.Styles (buttonStyle, confirmationDialogContentWidgetStyle, confirmationDialogWidgetStyle, iconStyle, legendItemWidgetStyle, legendWidgetStyle, serviceStatusWidgetStyle, tableStyle)
+
+confirmationDialogWidget :: String -> Widget HTML ConfirmDialogAction
+confirmationDialogWidget content =
+  D.div [ confirmationDialogWidgetStyle ]
+    [ D.div [ confirmationDialogContentWidgetStyle ]
+        [ D.h3' [ D.text content ]
+        , D.div'
+            [ D.button
+                [ buttonStyle "#04AA6D"
+                , P.onClick $> Confirm
+                ]
+                [ D.text "Confirm" ]
+            , D.button
+                [ buttonStyle "#aa0441"
+                , P.onClick $> Cancel
+                ]
+                [ D.text "Cancel" ]
+            ]
+        ]
+    ]
 
 legendWidget :: forall a. String -> LegendItemArray -> Widget HTML a
 legendWidget legendTitle legendItems =
@@ -32,11 +51,14 @@ tableWidget tableHeadingsWidget tableRowItems = D.table [ tableStyle ] [ D.tbody
 serviceStatusWidget :: forall a. String -> Widget HTML a
 serviceStatusWidget color = D.span [ serviceStatusWidgetStyle color ] []
 
-pauseIconWidget :: String -> Widget HTML ButtonClickAction
-pauseIconWidget size = iconWidget "fa fa-pause" size (P.onClick $> PauseConsumer)
+pauseIconWidget :: ConsumerServiceInfo -> String -> Widget HTML ButtonClickAction
+pauseIconWidget consumerServiceInfo size = iconWidget "fa fa-pause" size (P.onClick $> PauseConsumer consumerServiceInfo)
 
-resumeIconWidget :: String -> Widget HTML ButtonClickAction
-resumeIconWidget size = iconWidget "fa fa-play" size (P.onClick $> ResumeConsumer)
+resumeIconWidget :: ConsumerServiceInfo -> String -> Widget HTML ButtonClickAction
+resumeIconWidget consumerServiceInfo size = iconWidget "fa fa-play" size (P.onClick $> ResumeConsumer consumerServiceInfo)
+
+noActionIconWidget :: forall a. String -> Widget HTML a
+noActionIconWidget size = iconWidget "fa fa-times" size P.emptyProp
 
 refreshIconWidget :: String -> Widget HTML ButtonClickAction
 refreshIconWidget size = iconWidget "fa fa-refresh" size (P.onClick $> Refresh)

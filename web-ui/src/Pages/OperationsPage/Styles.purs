@@ -54,3 +54,42 @@ pageStyle =
     , "flexWrap": "wrap"
     , "justifyContent": "center"
     }
+
+confirmationDialogWidgetStyle :: forall a. P.ReactProps a
+confirmationDialogWidgetStyle =
+  P.style
+    { "display": "block"
+    , "position": "fixed"
+    , "zIndex": "1"
+    , "paddingTop": "100px"
+    , "left": "0"
+    , "top": "0"
+    , "width": "100%"
+    , "height": "100%"
+    , "textAlign": "center"
+    , "overflow": "auto"
+    , "backgroundColor": "rgb(0, 0, 0, 0.4)"
+    }
+
+confirmationDialogContentWidgetStyle :: forall a. P.ReactProps a
+confirmationDialogContentWidgetStyle =
+  P.style
+    { "backgroundColor": "#fefefe"
+    , "marginLeft": "15%"
+    , "padding": "20px"
+    , "border": "1px solid #888"
+    , "width": "30%"
+    }
+
+buttonStyle :: forall a. String -> P.ReactProps a
+buttonStyle color =
+  P.style
+    { "backgroundColor": color
+    , "color": "white"
+    , "padding": "20px"
+    , "textAlign": "center"
+    , "textDecoration": "none"
+    , "display": "inline-block"
+    , "fontSize": "16px"
+    , "margin": "4px 2px"
+    }

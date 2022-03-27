@@ -5,8 +5,12 @@ import Concur.React (HTML)
 
 data ButtonClickAction
   = Refresh
-  | PauseConsumer
-  | ResumeConsumer
+  | PauseConsumer ConsumerServiceInfo
+  | ResumeConsumer ConsumerServiceInfo
+
+data ConfirmDialogAction
+  = Confirm
+  | Cancel
 
 type LegendItem
   = { widget :: forall a. Widget HTML a
@@ -41,3 +45,8 @@ type ConsumerServiceInfo
 
 type ConsumerServiceInfoArray
   = Array ConsumerServiceInfo
+
+data ConsumerServiceStatus
+  = Running
+  | Paused
+  | FailedToFetch

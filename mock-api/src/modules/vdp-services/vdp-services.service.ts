@@ -64,15 +64,15 @@ export class VdpServicesService {
         consumers: [
           {
             ipAddress: '1.2.3.4',
-            pauseEndpoint: 'http://service1/pause',
-            resumeEndpoint: 'http://service1/resume',
-            statusEndpoint: 'http://service1/status',
+            pauseEndpoint: 'http://localhost:3000/vdp-services/health-check-services',
+            resumeEndpoint: 'http://localhost:3000/vdp-services/health-check-services',
+            statusEndpoint: 'http://localhost:3000/vdp-services/health-check-services',
           },
           {
             ipAddress: '5.6.7.8',
             pauseEndpoint: 'http://service2/pause',
             resumeEndpoint: 'http://service2/resume',
-            statusEndpoint: 'http://service2/status',
+            statusEndpoint: 'http://localhost:3000/es',
           },
         ],
       },

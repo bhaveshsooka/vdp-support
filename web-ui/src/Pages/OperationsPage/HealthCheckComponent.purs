@@ -68,7 +68,7 @@ healthCheckStatusTable healthCheckServiceArray = tableWidget healthCheckTableHea
   healthCheckTableRowWidget healthCheckService =
     D.tr'
       [ D.td' [ D.text healthCheckService.serviceName ]
-      , healthCheckFetchStatusWidget healthCheckService.healthCheckEndpoint
+      , D.td' [ healthCheckFetchStatusWidget healthCheckService.healthCheckEndpoint ]
       ]
 
   healthCheckFetchStatusWidget endpoint = do
@@ -76,6 +76,6 @@ healthCheckStatusTable healthCheckServiceArray = tableWidget healthCheckTableHea
     _ <- case res of
       Left _ -> refreshIconWidget "25px" -- D.td' [ serviceStatusWidget "Purple" ] -- revert this to remove individual refreshes
       Right r -> case r.status of
-        (StatusCode 200) -> D.td' [ serviceStatusWidget "Green" ]
-        _ -> D.td' [ serviceStatusWidget "Red" ]
+        (StatusCode 200) -> serviceStatusWidget "Green"
+        _ -> serviceStatusWidget "Red"
     healthCheckFetchStatusWidget endpoint

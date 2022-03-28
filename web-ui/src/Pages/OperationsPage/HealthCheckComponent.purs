@@ -49,7 +49,7 @@ healthCheckContent = do
 
 -- Helper
 healthCheckLegendWidget :: forall a. Widget HTML a
-healthCheckLegendWidget = (legendWidget "Color code" healthCheckLegendItems)
+healthCheckLegendWidget = (legendWidget "Legend" healthCheckLegendItems)
 
 healthCheckStatusTable :: HealthCheckInfoArray -> Widget HTML ButtonClickAction
 healthCheckStatusTable healthCheckServiceArray = tableWidget healthCheckTableHeadingsWidget healthCheckTableRowsWidget

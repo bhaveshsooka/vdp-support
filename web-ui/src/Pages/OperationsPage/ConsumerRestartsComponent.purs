@@ -61,7 +61,7 @@ consumerRestartsContent = do
 
 -- Helper
 consumerRestartsLegendWidget :: forall a. Widget HTML a
-consumerRestartsLegendWidget = (legendWidget "Color code" consumerRestartsLegendItems)
+consumerRestartsLegendWidget = (legendWidget "Legend" consumerRestartsLegendItems)
 
 consumerRestartsTable :: MarketInfoArray -> Widget HTML ButtonClickAction
 consumerRestartsTable marketInfoArray = tableWidget consumerRestartsTableHeadingsWidget consumerRestartsTableRowsWidget

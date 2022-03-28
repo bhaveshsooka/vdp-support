@@ -62,6 +62,7 @@ confirmationDialogWidgetStyle =
     , "position": "fixed"
     , "zIndex": "1"
     , "paddingTop": "100px"
+    , "paddingLeft": "25%"
     , "left": "0"
     , "top": "0"
     , "width": "100%"

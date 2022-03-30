@@ -46,7 +46,7 @@ legendWidget legendTitle legendItems =
       ]
 
 tableWidget :: forall a. Widget HTML a -> Array (Widget HTML a) -> Widget HTML a
-tableWidget tableHeadingsWidget tableRowItems = D.table [ tableStyle ] [ D.tbody' $ cons tableHeadingsWidget tableRowItems ]
+tableWidget tableHeadingsWidget tableRowItems = D.table [ tableWidgetStyle ] [ D.tbody' $ cons tableHeadingsWidget tableRowItems ]
 
 serviceStatusWidget :: forall a. String -> Widget HTML a
 serviceStatusWidget color = D.span [ serviceStatusWidgetStyle color ] []

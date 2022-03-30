@@ -25,8 +25,8 @@ iconStyle size =
     , "fontSize": size
     }
 
-tableStyle :: forall a. P.ReactProps a
-tableStyle =
+tableWidgetStyle :: forall a. P.ReactProps a
+tableWidgetStyle =
   P.style
     { "width": "100%"
     , "border": "1px solid black"

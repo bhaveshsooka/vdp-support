@@ -88,6 +88,23 @@ confirmationDialogContentWidgetStyle =
     , "width": "30%"
     }
 
+snackbarNotificationWidgetStyle :: forall a. P.ReactProps a
+snackbarNotificationWidgetStyle =
+  P.style
+    { "minWidth": "250px"
+    , "marginLeft": "125px"
+    , "backgroundColor": "#333"
+    , "color": "#fff"
+    , "textAlign": "center"
+    , "borderRadius": "2px"
+    , "padding": "16px"
+    , "position": "fixed"
+    , "zIndex": "1"
+    , "left": "65%"
+    , "bottom": "30px"
+    , "fontSize": "17px"
+    }
+
 buttonStyle :: forall a. String -> P.ReactProps a
 buttonStyle color =
   P.style

@@ -1,13 +1,17 @@
 module VDPSupport.Pages.OperationsPage.Common where
 
 import Prelude
+
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
 import Concur.React.Props as P
 import Data.Array (cons)
 import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction(..), ConfirmDialogAction(..), LegendItem, LegendItemArray, FlattenedConsumerServiceInfo)
-import VDPSupport.Pages.OperationsPage.Styles (buttonStyle, confirmationDialogContentWidgetStyle, confirmationDialogWidgetStyle, iconStyle, legendItemWidgetStyle, legendWidgetStyle, serviceStatusWidgetStyle, tableWidgetStyle)
+import VDPSupport.Pages.OperationsPage.Styles (buttonStyle, confirmationDialogContentWidgetStyle, confirmationDialogWidgetStyle, iconStyle, legendItemWidgetStyle, legendWidgetStyle, serviceStatusWidgetStyle, snackbarNotificationWidgetStyle, tableWidgetStyle)
+
+snackbarNotificationWidget :: String -> Widget HTML Unit
+snackbarNotificationWidget message = D.div [ snackbarNotificationWidgetStyle, P.onClick $> unit ] [ D.text message ]
 
 confirmationDialogWidget :: String -> Widget HTML ConfirmDialogAction
 confirmationDialogWidget content =

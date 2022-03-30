@@ -6,13 +6,16 @@ import Affjax.StatusCode (StatusCode(..))
 import Concur.Core (Widget)
 import Concur.React (HTML)
 import Concur.React.DOM as D
+import Concur.React.Run (runWidgetInDom)
 import Control.Alt ((<|>))
 import Data.Argonaut.Decode (decodeJson)
 import Data.Either (Either(..))
+import Effect (Effect)
 import Effect.Aff.Class (liftAff)
+import Effect.Class (liftEffect)
 import VDPSupport.HTTP (getRequest)
-import VDPSupport.Pages.OperationsPage.Common (legendWidget, loadingIconWidget, noActionIconWidget, pauseIconWidget, refreshIconWidget, resumeIconWidget, serviceStatusWidget, tableWidget)
-import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction, ConsumerServiceStatus(..), LegendItemArray, MarketInfoArray, flattenMarketInfoArray)
+import VDPSupport.Pages.OperationsPage.Common (confirmationDialogWidget, legendWidget, loadingIconWidget, noActionIconWidget, pauseIconWidget, refreshIconWidget, resumeIconWidget, serviceStatusWidget, snackbarNotificationWidget, tableWidget)
+import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction(..), ConfirmDialogAction(..), ConsumerServiceStatus(..), LegendItemArray, MarketInfoArray, flattenMarketInfoArray)
 import VDPSupport.Pages.OperationsPage.Styles (pageStyle, tableHeadingsWidgetStyle)
 
 -- Data
@@ -68,7 +71,7 @@ consumerRestartsTable marketInfoArray = tableWidget tableHeadingsWidget tableRow
   tableRowsWidget = flattenMarketInfoArray marketInfoArray <#> tableRowWidget
 
   tableRowWidget consumerServiceInfo = do
-    _ <-
+    action <-
       D.tr'
         [ D.td' [ D.text consumerServiceInfo.marketName ]
         , D.td' [ D.text consumerServiceInfo.environmentName ]
@@ -76,6 +79,7 @@ consumerRestartsTable marketInfoArray = tableWidget tableHeadingsWidget tableRow
         , D.td' [ tableCellActionIconWidget consumerServiceInfo ]
         , D.td' [ tableCellStatusWidget consumerServiceInfo.statusEndpoint ]
         ]
+    _ <- liftEffect $ consumerRestartsHandleButtonAction action
     tableRowWidget consumerServiceInfo
 
   tableCellActionIconWidget consumerServiceInfo = do
@@ -100,3 +104,52 @@ consumerRestartsFetchStatus endpoint = do
     Right r -> case r.status of
       (StatusCode 200) -> pure Running
       _ -> pure Paused
+
+consumerRestartsHandleButtonAction :: ButtonClickAction -> Effect Unit
+consumerRestartsHandleButtonAction action = 
+  let
+    dialogMessage a consumerDescription = "Confirm " <> a <> " on consumer:  " <> consumerDescription
+    requestFailedMessage a consumerDescription= "Failed to make request to " <> a <> " consumer: " <> consumerDescription
+    requestBadMessage a consumerDescription= "Failed to " <> a <> " consumer: "  <> consumerDescription
+    requestGoodMessage a consumerDescription= "Successfully " <> a <> " consumer: " <> consumerDescription
+  in 
+  case action of
+    Refresh -> pure unit
+    PauseConsumer consumerService ->
+      let 
+        consumerDescription = consumerService.ipAddress <> " in env: " <> consumerService.environmentName
+      in
+      consumerRestartsHandleConfirmationDialog 
+        consumerService.pauseEndpoint
+        (dialogMessage "pause" consumerDescription)
+        (requestFailedMessage "pause" consumerDescription)
+        (requestBadMessage "pause" consumerDescription)
+        (requestGoodMessage "paused" consumerDescription)
+    ResumeConsumer consumerService -> 
+      let 
+        consumerDescription = consumerService.ipAddress <> " in env: " <> consumerService.environmentName
+      in
+      consumerRestartsHandleConfirmationDialog 
+        consumerService.resumeEndpoint
+        (dialogMessage "resume" consumerDescription)
+        (requestFailedMessage "resume" consumerDescription)
+        (requestBadMessage "resume" consumerDescription)
+        (requestGoodMessage "resumed" consumerDescription)
+
+consumerRestartsHandleConfirmationDialog :: String -> String → String → String → String → Effect Unit
+consumerRestartsHandleConfirmationDialog endpoint dialogMessage requestFailedMessage requestBadMessage requestGoodMessage= do
+  runWidgetInDom "tmp" $ do
+    confirmation <- confirmationDialogWidget dialogMessage
+    case confirmation of
+      Confirm ->  consumerRestartsHandleConsumerAction endpoint requestFailedMessage requestBadMessage requestGoodMessage
+      Cancel -> pure unit
+
+
+consumerRestartsHandleConsumerAction :: String -> String -> String -> String -> Widget HTML Unit
+consumerRestartsHandleConsumerAction endpoint requestFailedMessage requestBadMessage requestGoodMessage = do
+  res <- liftAff $ getRequest endpoint
+  case res of
+    Left _ -> snackbarNotificationWidget requestFailedMessage
+    Right r -> case r.status of
+      (StatusCode 200) -> snackbarNotificationWidget requestBadMessage
+      _ -> snackbarNotificationWidget requestGoodMessage

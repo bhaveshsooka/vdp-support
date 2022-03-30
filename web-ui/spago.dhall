@@ -27,6 +27,7 @@ to generate this file without the comments in this block.
   , "maybe"
   , "prelude"
   , "psci-support"
+  , "record"
   , "routing"
   , "routing-duplex"
   , "simple-json"

@@ -6,8 +6,8 @@ import Concur.React (HTML)
 import Concur.React.DOM as D
 import Concur.React.Props as P
 import Data.Array (cons)
-import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction(..), ConfirmDialogAction(..), LegendItem, LegendItemArray, ConsumerServiceInfo)
-import VDPSupport.Pages.OperationsPage.Styles (buttonStyle, confirmationDialogContentWidgetStyle, confirmationDialogWidgetStyle, iconStyle, legendItemWidgetStyle, legendWidgetStyle, serviceStatusWidgetStyle, tableStyle)
+import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction(..), ConfirmDialogAction(..), LegendItem, LegendItemArray, FlattenedConsumerServiceInfo)
+import VDPSupport.Pages.OperationsPage.Styles (buttonStyle, confirmationDialogContentWidgetStyle, confirmationDialogWidgetStyle, iconStyle, legendItemWidgetStyle, legendWidgetStyle, serviceStatusWidgetStyle, tableWidgetStyle)
 
 confirmationDialogWidget :: String -> Widget HTML ConfirmDialogAction
 confirmationDialogWidget content =
@@ -51,10 +51,10 @@ tableWidget tableHeadingsWidget tableRowItems = D.table [ tableWidgetStyle ] [ D
 serviceStatusWidget :: forall a. String -> Widget HTML a
 serviceStatusWidget color = D.span [ serviceStatusWidgetStyle color ] []
 
-pauseIconWidget :: ConsumerServiceInfo -> String -> Widget HTML ButtonClickAction
+pauseIconWidget :: FlattenedConsumerServiceInfo -> String -> Widget HTML ButtonClickAction
 pauseIconWidget consumerServiceInfo size = iconWidget "fa fa-pause" size (P.onClick $> PauseConsumer consumerServiceInfo)
 
-resumeIconWidget :: ConsumerServiceInfo -> String -> Widget HTML ButtonClickAction
+resumeIconWidget :: FlattenedConsumerServiceInfo -> String -> Widget HTML ButtonClickAction
 resumeIconWidget consumerServiceInfo size = iconWidget "fa fa-play" size (P.onClick $> ResumeConsumer consumerServiceInfo)
 
 noActionIconWidget :: forall a. String -> Widget HTML a

@@ -61,52 +61,147 @@ export class VdpServicesService {
     return [
       {
         marketName: 'market1',
-        consumers: [
+        environments: [
           {
-            ipAddress: '1.2.3.4',
-            pauseEndpoint: 'http://localhost:3000/vdp-services/health-check-services',
-            resumeEndpoint: 'http://localhost:3000/vdp-services/health-check-services',
-            statusEndpoint: 'http://localhost:3000/vdp-services/health-check-services',
+            environmentName: 'dev',
+            consumers: [
+              {
+                ipAddress: '1.2.3.4',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://localhost:3000/vdp-services/health-check-services',
+              },
+              {
+                ipAddress: '1.2.3.4',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://localhost:3000/failed',
+              },
+              {
+                ipAddress: '1.2.3.4',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+            ],
           },
           {
-            ipAddress: '5.6.7.8',
-            pauseEndpoint: 'http://service2/pause',
-            resumeEndpoint: 'http://service2/resume',
-            statusEndpoint: 'http://localhost:3000/es',
+            environmentName: 'test',
+            consumers: [
+              {
+                ipAddress: '2.3.4.1',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+              {
+                ipAddress: '2.3.4.1',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+              {
+                ipAddress: '2.3.4.1',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+            ],
+          },
+          {
+            environmentName: 'uat',
+            consumers: [
+              {
+                ipAddress: '3.4.1.2',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+              {
+                ipAddress: '3.4.1.2',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+              {
+                ipAddress: '3.4.1.2',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+            ],
+          },
+          {
+            environmentName: 'prod',
+            consumers: [
+              {
+                ipAddress: '4.1.2.3',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+              {
+                ipAddress: '4.1.2.3',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+              {
+                ipAddress: '4.1.2.3',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+            ],
           },
         ],
       },
       {
         marketName: 'market2',
-        consumers: [
+        environments: [
           {
-            ipAddress: '1.2.3.4',
-            pauseEndpoint: 'http://service1/pause',
-            resumeEndpoint: 'http://service1/resume',
-            statusEndpoint: 'http://service1/status',
-          },
-        ],
-      },
-      {
-        marketName: 'market3',
-        consumers: [
-          {
-            ipAddress: '1.2.3.4',
-            pauseEndpoint: 'http://service3/pause',
-            resumeEndpoint: 'http://service3/resume',
-            statusEndpoint: 'http://service3/status',
+            environmentName: 'dev',
+            consumers: [
+              {
+                ipAddress: '1.2.3.4',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+            ],
           },
           {
-            ipAddress: '1.2.3.4',
-            pauseEndpoint: 'http://service3/pause',
-            resumeEndpoint: 'http://service3/resume',
-            statusEndpoint: 'http://service3/status',
+            environmentName: 'test',
+            consumers: [
+              {
+                ipAddress: '2.3.4.1',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+            ],
           },
           {
-            ipAddress: '1.2.3.4',
-            pauseEndpoint: 'http://service3/pause',
-            resumeEndpoint: 'http://service3/resume',
-            statusEndpoint: 'http://service3/status',
+            environmentName: 'uat',
+            consumers: [
+              {
+                ipAddress: '3.4.1.2',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+            ],
+          },
+          {
+            environmentName: 'prod',
+            consumers: [
+              {
+                ipAddress: '4.1.2.3',
+                pauseEndpoint: 'http://service3/pause',
+                resumeEndpoint: 'http://service3/resume',
+                statusEndpoint: 'http://service3/status',
+              },
+            ],
           },
         ],
       },

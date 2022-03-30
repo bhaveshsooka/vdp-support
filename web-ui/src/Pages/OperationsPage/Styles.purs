@@ -36,6 +36,12 @@ tableWidgetStyle =
     , "borderCollapse": "collapse"
     }
 
+tableHeadingsWidgetStyle :: forall a. P.ReactProps a
+tableHeadingsWidgetStyle =
+  P.style
+    { "borderBottom": "1px solid black"
+    }
+
 serviceStatusWidgetStyle :: forall a. String -> P.ReactProps a
 serviceStatusWidgetStyle color =
   P.style

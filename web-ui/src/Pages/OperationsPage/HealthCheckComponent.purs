@@ -14,7 +14,7 @@ import Effect.Aff.Class (liftAff)
 import VDPSupport.HTTP (getRequest)
 import VDPSupport.Pages.OperationsPage.Common (legendWidget, loadingIconWidget, refreshIconWidget, serviceStatusWidget, tableWidget)
 import VDPSupport.Pages.OperationsPage.Domain (ButtonClickAction, HealthCheckInfoArray, LegendItemArray)
-import VDPSupport.Pages.OperationsPage.Styles (pageStyle)
+import VDPSupport.Pages.OperationsPage.Styles (pageStyle, tableHeadingsWidgetStyle)
 
 -- Data
 healthCheckLegendItems :: LegendItemArray
@@ -55,7 +55,7 @@ healthCheckStatusTable :: HealthCheckInfoArray -> Widget HTML ButtonClickAction
 healthCheckStatusTable healthCheckServiceArray = tableWidget healthCheckTableHeadingsWidget healthCheckTableRowsWidget
   where
   healthCheckTableHeadingsWidget =
-    D.tr'
+    D.tr [ tableHeadingsWidgetStyle ]
       [ D.td' [ D.text "Service Name" ]
       , D.td'
           [ D.text "Status"
